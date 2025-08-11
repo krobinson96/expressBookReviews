@@ -14,7 +14,7 @@ public_users.post("/register", (req,res) => {
     return res.status(400).json({message:"Username already exists"})
   }
   users.push({username, password});
-  return res.status(200).send(`User ${username} has been registered`)
+  return res.status(200).send(`User ${username} has been registered\n${JSON.stringify({users}, null, 4)}`)
 });
 
 // Get the book list available in the shop
