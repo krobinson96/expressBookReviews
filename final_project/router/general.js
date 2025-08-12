@@ -39,22 +39,24 @@ public_users.get('/isbn/:isbn', async function (req, res) {
 // Get book details based on author
 public_users.get('/author/:author', async function (req, res) {
     const author = req.params.author;
+    const nBooks = await getBooks();
     bookList = [];
-    Object.keys(await getBooks()).forEach(async (book) => {
-        if(await getBooks()[book].author == author){
-            bookList.push(await getBooks()[book]);
+    Object.keys(nBooks).forEach((book) => {
+        if(nBooks[book].author == author){
+            bookList.push(nBooks[book]);
         }
     })
     return res.status(200).send(JSON.stringify({bookList}, null, 4))
 });
 
 // Get all books based on title
-public_users.get('/title/:title',function (req, res) {
+public_users.get('/title/:title', async function (req, res) {
     const title = req.params.title;
+    const nBooks = await getBooks();
     let titledBook;
-    Object.keys(getBooks()).forEach((book) => {
-        if(books[book].title == title){
-            titledBook = books[book];
+    Object.keys(nBooks).forEach((book) => {
+        if(nBooks[book].title == title){
+            titledBook = nBooks[book];
         }
     })
     return res.status(200).send(JSON.stringify({titledBook}, null, 4))
